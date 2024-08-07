@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Inicio de Sesión</h1>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario">
+                            </div>
+                            <div class="form-group">
+                                <label for="clave">Clave</label>
+                                <input type="password" class="form-control" id="clave" placeholder="Ingrese su clave">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block" onclick="ingresar()">Ingresar</button>
+                        </form>
+                        <div id="mensaje" class="mt-3" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function ingresar() {
+            const usuario = document.getElementById('usuario').value;
+            const clave = document.getElementById('clave').value;
+
+            const response = await fetch(`/login?usuario=${usuario}&clave=${clave}`);
+            const mensajeDiv = document.getElementById('mensaje');
+
+            if (response.ok) {
+                mensajeDiv.innerHTML = '<div class="alert alert-success">Inicio de sesión correcto. Has iniciado sesión correctamente.</div>';
+                mensajeDiv.style.display = 'block';
+            } else {
+                mensajeDiv.innerHTML = '<div class="alert alert-danger">Usuario o clave incorrectos.</div>';
+                mensajeDiv.style.display = 'block';
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
